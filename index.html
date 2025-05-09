@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Generator</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.png">
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 2em; }
+    .code { font-size: 2em; margin: 1em; }
+    .status { font-size: 2em; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>ランダムコード生成</h1>
+  <div class="code" id="code">----</div>
+  <div class="status" id="status">◯</div>
+  <button onclick="generateCode()">作成</button>
+
+  <script>
+    function generateCode() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let code = '';
+      for (let i = 0; i < 4; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      document.getElementById('code').textContent = code;
+      document.getElementById('status').textContent = '◯';
+    }
+
+    document.getElementById('status').addEventListener('click', () => {
+      const status = document.getElementById('status');
+      status.textContent = status.textContent === '◯' ? '×' : '◯';
+    });
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+</body>
+</html>
